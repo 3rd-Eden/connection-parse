@@ -26,6 +26,7 @@ function parse(args) {
 
   return {
       servers: servers
+    , length: servers.length
     , weights: servers.reduce(function reduce(memo, server) {
         memo[server.string] = server.weight;
         return memo;
