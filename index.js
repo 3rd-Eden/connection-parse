@@ -15,19 +15,21 @@ function parse(args) {
   } else if (Array.isArray(args)) {
     servers = args.map(address);
   } else if ('object' === typeof args) {
-    servers = Object.keys(args).map(address);
+    servers = Object.keys(args).map(function generate(server) {
+      var weight = args[server];
+
+      return address(server, weight);
+    });
   } else {
     servers = [args].map(address);
   }
 
   return {
       servers: servers
-    , weights: 'object' !== typeof args || Array.isArray(args)
-        ? servers.reduce(function weights(memo, server) {
-            memo[server.string] = 1;
-            return memo;
-          }, {})
-        : args
+    , weights: servers.reduce(function reduce(memo, server) {
+        memo[server.string] = server.weight;
+        return memo;
+      }, {})
     , regular: servers.map(function regular(server) {
         return server.string;
       })
@@ -42,9 +44,11 @@ function parse(args) {
  * @returns {Object}
  * @api private
  */
-function address(server) {
+function address(server, weight) {
   if ('string' !== typeof server) {
     server.string = server.host +':'+ server.port;
+    server.weight = +server.weight || 1;
+
     return server;
   }
 
@@ -54,6 +58,7 @@ function address(server) {
       host: pattern[0]
     , port: +pattern[1]
     , string: server
+    , weight: +weight || 1
   };
 }
 

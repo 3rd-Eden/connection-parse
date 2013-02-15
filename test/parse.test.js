@@ -27,6 +27,7 @@ describe('connection-parse()', function () {
       expect(server.host).to.be.a('string');
       expect(server.port).to.be.a('number');
       expect(server.string).to.be.a('string');
+      expect(server.weight).to.equal(1);
     });
 
     res.regular.forEach(function (server) {
@@ -49,6 +50,7 @@ describe('connection-parse()', function () {
       expect(server.host).to.be.a('string');
       expect(server.port).to.be.a('number');
       expect(server.string).to.be.a('string');
+      expect(server.weight).to.equal(1);
     });
 
     res.regular.forEach(function (server) {
@@ -73,6 +75,7 @@ describe('connection-parse()', function () {
       expect(server.host).to.be.a('string');
       expect(server.port).to.be.a('number');
       expect(server.string).to.be.a('string');
+      expect(server.weight).to.equal(100);
     });
 
     res.regular.forEach(function (server) {
@@ -95,6 +98,7 @@ describe('connection-parse()', function () {
       expect(server.port).to.equal(1111);
       expect(server.string).to.equal('1.1.1.1:1111');
       expect(server.host).to.equal('1.1.1.1');
+      expect(server.weight).to.equal(1);
     });
 
     res.regular.forEach(function (server) {
