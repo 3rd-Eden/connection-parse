@@ -105,4 +105,24 @@ describe('connection-parse()', function () {
       expect(server).to.equal('1.1.1.1:1111');
     });
   });
+
+  it('allows custom parsers', function () {
+    parse.extension('vnode', function (data) {
+      data.vnode = 11;
+    });
+
+    var res = parse('1.1.1.1:1111');
+
+    Object.keys(res.vnode).forEach(function (server) {
+      expect(res.vnode[server]).to.equal(11);
+    });
+
+    res.servers.forEach(function (server) {
+      expect(server.port).to.equal(1111);
+      expect(server.string).to.equal('1.1.1.1:1111');
+      expect(server.host).to.equal('1.1.1.1');
+      expect(server.weight).to.equal(1);
+      expect(server.vnode).to.equal(11);
+    });
+  });
 });

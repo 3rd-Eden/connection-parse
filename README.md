@@ -36,6 +36,14 @@ parse({ '1.1.1.1:1111': 100 });
     '1.1.1.1:1111': 100 // or 1 by default
   }
 }
+
+// It also accepts custom parsers
+parse.merge(function (data) {
+  data.foo = 'bar';
+  return data;
+});
+
+Then the server instances will also have an extra property, `foo`.
 ```
 
 ## License

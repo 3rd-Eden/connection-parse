@@ -1,4 +1,8 @@
-### 0.0.2A
+### 0.0.3
+
+- Added support for custom parsers.
+
+### 0.0.2
 
 - Added `length` property
 
