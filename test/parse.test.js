@@ -83,6 +83,31 @@ describe('connection-parse()', function () {
     });
   });
 
+  it('accepts an object in a object', function () {
+    var res = parse({ '1.1.1.1:1111': { weight: 100 }});
+
+    expect(res).to.be.a('object');
+    expect(res.servers).to.be.a('array');
+    expect(res.regular).to.be.a('array');
+    expect(res.weights).to.be.a('object');
+
+    Object.keys(res.weights).forEach(function (server) {
+      expect(server).to.equal('1.1.1.1:1111');
+      expect(res.weights[server]).to.equal(100);
+    });
+
+    res.servers.forEach(function (server) {
+      expect(server.host).to.be.a('string');
+      expect(server.port).to.be.a('number');
+      expect(server.string).to.be.a('string');
+      expect(server.weight).to.equal(100);
+    });
+
+    res.regular.forEach(function (server) {
+      expect(server).to.be.a('string');
+    });
+  });
+
   it('accepts an string', function () {
     var res = parse('1.1.1.1:1111');
 

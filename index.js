@@ -72,13 +72,16 @@ parse.extension = function extension(name, parser) {
  * hostname.
  *
  * @param {Mixed} server
+ * @param {Mixed} value
  * @returns {Object}
  * @api private
  */
-function address(server, weight) {
+function address(server, value) {
   if ('string' !== typeof server) {
     server.string = server.host +':'+ server.port;
-    server.weight = +server.weight || 1;
+    server.weight = +server.weight || typeof value === 'object'
+      ? +value.weight
+      : 1;
 
     return server;
   }
@@ -89,13 +92,15 @@ function address(server, weight) {
           host: pattern[0]
         , port: +pattern[1]
         , string: server
-        , weight: +weight || 1
+        , weight: typeof value === 'object'
+          ? +value.weight
+          : +value || 1
       };
 
   // Iterate over the extensions for the last piece of crushing
   Object.keys(extensions).forEach(function each(key) {
     var parser = extensions[key]
-      , res = parser(data);
+      , res = parser(data, value);
 
     if (res) data = res;
   });
