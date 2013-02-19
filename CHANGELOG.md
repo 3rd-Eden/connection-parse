@@ -1,3 +1,8 @@
+### 0.0.5
+
+- Fixed a bug where the weight was not parse correctly when multipe values were
+  provided in an object, but no weight.
+
 ### 0.0.4
 
 - Don't die when we parse without arguments.

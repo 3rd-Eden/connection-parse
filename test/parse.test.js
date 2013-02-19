@@ -106,6 +106,11 @@ describe('connection-parse()', function () {
     res.regular.forEach(function (server) {
       expect(server).to.be.a('string');
     });
+
+    res = parse({ '1.1.1.1:1111': { foo: 100 }});
+    res.servers.forEach(function (server) {
+      expect(server.weight).to.equal(1);
+    });
   });
 
   it('accepts an string', function () {
