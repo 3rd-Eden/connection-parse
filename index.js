@@ -27,8 +27,10 @@ function parse(args) {
     servers = Object.keys(args).map(function generate(server) {
       return address(server, args[server]);
     });
-  } else {
+  } else if (args) {
     servers = [args].map(address);
+  } else {
+    servers = [];
   }
 
   // Setup the data structure that we are going to return

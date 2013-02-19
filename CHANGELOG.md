@@ -1,3 +1,7 @@
+### 0.0.4
+
+- Don't die when we parse without arguments.
+
 ### 0.0.3
 
 - Added support for custom parsers.

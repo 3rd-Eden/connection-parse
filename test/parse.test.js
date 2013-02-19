@@ -150,4 +150,10 @@ describe('connection-parse()', function () {
       expect(server.vnode).to.equal(11);
     });
   });
+
+  it('does not die when you parse nothing', function () {
+    var res = parse();
+
+    expect(res.servers).to.have.lengthOf(0);
+  });
 });
