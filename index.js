@@ -82,8 +82,8 @@ function address(server, value) {
   if ('string' !== typeof server) {
     server.string = server.host +':'+ server.port;
     server.weight = +server.weight || typeof value === 'object'
-      ? +value.weight || 1
-      : 1;
+      ? +value.weight || 0
+      : 0;
 
     return server;
   }
