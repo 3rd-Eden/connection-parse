@@ -88,8 +88,8 @@ function address(server, value) {
   if ('string' !== typeof server) {
     server.string = server.host +':'+ server.port;
     server.weight = +server.weight || typeof value === 'object'
-      ? +value.weight || 0
-      : 0;
+      ? +value.weight || 1
+      : 1;
 
     return server;
   }
@@ -100,7 +100,7 @@ function address(server, value) {
           host: pattern[0]
         , port: +pattern[1]
         , string: server
-        , weight: (typeof value === 'object' ? +value.weight : +value) || 0
+        , weight: (typeof value === 'object' ? +value.weight : +value) || 1
       };
 
   // Iterate over the extensions for the last piece of crushing

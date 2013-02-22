@@ -1,3 +1,7 @@
+### 0.0.7
+
+- Revert weight to 1
+
 ### 0.0.6
 
 - Default to no weight

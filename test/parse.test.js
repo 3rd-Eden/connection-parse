@@ -12,6 +12,8 @@ var chai = require('chai')
 chai.Assertion.includeStack = true;
 
 describe('connection-parse()', function () {
+  var weight = 1;
+
   it('accepts multiple arguments', function () {
     var res = parse('1.1.1.1:1111', '11.11.11:1111');
 
@@ -20,14 +22,14 @@ describe('connection-parse()', function () {
     expect(res.regular).to.be.a('array');
 
     Object.keys(res.weights).forEach(function (server) {
-      expect(res.weights[server]).to.equal(0);
+      expect(res.weights[server]).to.equal(weight);
     });
 
     res.servers.forEach(function (server) {
       expect(server.host).to.be.a('string');
       expect(server.port).to.be.a('number');
       expect(server.string).to.be.a('string');
-      expect(server.weight).to.equal(0);
+      expect(server.weight).to.equal(weight);
     });
 
     res.regular.forEach(function (server) {
@@ -43,14 +45,14 @@ describe('connection-parse()', function () {
     expect(res.regular).to.be.a('array');
 
     Object.keys(res.weights).forEach(function (server) {
-      expect(res.weights[server]).to.equal(0);
+      expect(res.weights[server]).to.equal(weight);
     });
 
     res.servers.forEach(function (server) {
       expect(server.host).to.be.a('string');
       expect(server.port).to.be.a('number');
       expect(server.string).to.be.a('string');
-      expect(server.weight).to.equal(0);
+      expect(server.weight).to.equal(weight);
     });
 
     res.regular.forEach(function (server) {
@@ -109,7 +111,7 @@ describe('connection-parse()', function () {
 
     res = parse({ '1.1.1.1:1111': { foo: 100 }});
     res.servers.forEach(function (server) {
-      expect(server.weight).to.equal(0);
+      expect(server.weight).to.equal(weight);
     });
   });
 
@@ -121,14 +123,14 @@ describe('connection-parse()', function () {
     expect(res.regular).to.be.a('array');
 
     Object.keys(res.weights).forEach(function (server) {
-      expect(res.weights[server]).to.equal(0);
+      expect(res.weights[server]).to.equal(weight);
     });
 
     res.servers.forEach(function (server) {
       expect(server.port).to.equal(1111);
       expect(server.string).to.equal('1.1.1.1:1111');
       expect(server.host).to.equal('1.1.1.1');
-      expect(server.weight).to.equal(0);
+      expect(server.weight).to.equal(weight);
     });
 
     res.regular.forEach(function (server) {
@@ -151,7 +153,7 @@ describe('connection-parse()', function () {
       expect(server.port).to.equal(1111);
       expect(server.string).to.equal('1.1.1.1:1111');
       expect(server.host).to.equal('1.1.1.1');
-      expect(server.weight).to.equal(0);
+      expect(server.weight).to.equal(weight);
       expect(server.vnode).to.equal(11);
     });
   });
