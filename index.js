@@ -20,15 +20,21 @@ function parse(args) {
   var servers;
 
   if (arguments.length > 1) {
-    servers = Array.prototype.slice.call(arguments, 0).map(address);
+    servers = Array.prototype.slice.call(arguments, 0).map(function generate(server) {
+      return address(server);
+    });
   } else if (Array.isArray(args)) {
-    servers = args.map(address);
+    servers = args.map(function generate(server) {
+      return address(server);
+    });
   } else if ('object' === typeof args) {
     servers = Object.keys(args).map(function generate(server) {
       return address(server, args[server]);
     });
   } else if (args) {
-    servers = [args].map(address);
+    servers = [args].map(function generate(server) {
+      return address(server);
+    });
   } else {
     servers = [];
   }
@@ -94,7 +100,7 @@ function address(server, value) {
           host: pattern[0]
         , port: +pattern[1]
         , string: server
-        , weight: (typeof value === 'object' ? +value.weight : +value) || 1
+        , weight: (typeof value === 'object' ? +value.weight : +value) || 0
       };
 
   // Iterate over the extensions for the last piece of crushing

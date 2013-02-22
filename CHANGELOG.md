@@ -1,3 +1,8 @@
+### 0.0.6
+
+- Default to no weight
+- Fixed a bug that set the default weight to the index of the array.
+
 ### 0.0.5
 
 - Fixed a bug where the weight was not parse correctly when multipe values were
