@@ -19,7 +19,7 @@
   "author": "Arnout Kazemier",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "1.8.x",
-    "chai": "1.4.x"
+    "mocha": "~3.1.2",
+    "chai": "~3.5.0"
   }
 }
